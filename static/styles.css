@@ -1,0 +1,11 @@
+
+
+body {
+    font-family: 'Roboto Mono';
+}
+
+.arabic-text {
+	font-family: 'Amiri Quran', serif;
+	direction: rtl;
+	text-align: right;
+}
