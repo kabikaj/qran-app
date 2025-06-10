@@ -24,8 +24,9 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-MASTER_PASSWORD = "admin"
+MASTER_PASSWORD = "admin"  #FIXME
 security = HTTPBasic()
+
 
 def verify_password(credentials: HTTPBasicCredentials = Depends(security)):
     correct_username = "admin"
@@ -39,29 +40,34 @@ def verify_password(credentials: HTTPBasicCredentials = Depends(security)):
         )
     return True
 
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request, auth: bool = Depends(verify_password)):
     return templates.TemplateResponse("index.html", {"request": request})
 
+
 @app.get("/generate")
 async def generate(
-    ini_sura = int | None,
-    ini_verse = int | None,
-    ini_word = int | None,
-    ini_block = int | None,
+    ini_sura: int = 1,
+    ini_verse: int = 1,
+    ini_word: int = 1,
+    ini_block: int = 1,
 
-    end_sura = int | None,
-    end_verse = int | None,
-    end_word = int | None,
-    end_block = int | None,
+    end_sura: int = -1,
+    end_verse: int = -1,
+    end_word: int = -1,
+    end_block: int = -1,
 
-    get_archigraphemes = bool,
-    get_blocks = bool,
-    get_latin = bool,
+    get_archigraphemes: bool = False,
+    get_blocks: bool = False,
+    get_latin: bool = False,
 
-    auth: bool = Depends(verify_password)):
+    auth: bool = Depends(verify_password)
+    ):
+
     try:
         result = get_text(
+            source="tanzil-uthmani",
             ini_index=Index(
                 sura=ini_sura,
                 verse=ini_verse,
@@ -78,12 +84,10 @@ async def generate(
                 "blocks": get_blocks,
                 "no_lat": not get_latin,
                 "no_ara": get_latin,
-                "no_graph": not get_archigraphemes,
-                "no_arch": get_archigraphemes,
+                "no_graph": get_archigraphemes,
+                "no_arch": not get_archigraphemes,
             }
         )
-        result = list(result) #FIXME
-        print(result) #FIXME
         return {"result": " ".join(res[0] for res in result)}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

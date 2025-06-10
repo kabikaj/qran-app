@@ -1,6 +1,9 @@
 
 document.addEventListener('DOMContentLoaded', function() {
+
     const generateBtn = document.getElementById('generate-btn');
+    const copyButton = document.getElementById('copyButton');
+    const resultElement = document.getElementById('result');
 
     const iniSuraInput = document.getElementById('ini_sura');
     const iniVerseInput = document.getElementById('ini_verse');
@@ -12,66 +15,48 @@ document.addEventListener('DOMContentLoaded', function() {
     const endWordInput = document.getElementById('end_word');
     const endBlockInput = document.getElementById('end_block');
 
-    const archigraphemes_output = document.getElementById('archigraphemesToggle').checked;
-    const blocks_output = document.getElementById('blocksToggle').checked;
-    const latin_output = document.getElementById('latinToggle').checked;
-
-    const resultElement = document.getElementById('result');
-    
     generateBtn.addEventListener('click', async function() {
-        
-        let ini_sura = parseInt(iniSuraInput.value);
-        let ini_verse = parseInt(iniVerseInput.value);
-        let ini_word = parseInt(iniWordInput.value);
-        let ini_block = parseInt(iniBlockInput.value);
 
-        let end_sura = parseInt(endSuraInput.value);
-        let end_verse = parseInt(endVerseInput.value);
-        let end_word = parseInt(endWordInput.value);
-        let end_block = parseInt(endBlockInput.value);
-        
-        if (isNaN(ini_sura)) {
-           ini_sura = 0; 
-        }
-        if (isNaN(ini_verse)) {
-           ini_verse = 0; 
-        }
-        if (isNaN(ini_word)) {
-           ini_word = 0; 
-        }
-        if (isNaN(ini_block)) {
-           ini_block = 0; 
-        }
+        const archigraphemes_output = document.getElementById('archigraphemesToggle').checked;
+        const blocks_output = document.getElementById('blocksToggle').checked;
+        const latin_output = document.getElementById('latinToggle').checked;
 
-        if (isNaN(end_sura)) {
-           end_sura = 0; 
-        }
-        if (isNaN(end_verse)) {
-           end_verse = 0; 
-        }
-        if (isNaN(end_word)) {
-           end_word = 0; 
-        }
-        if (isNaN(end_block)) {
-           end_block = 0; 
-        }
-        
+        const ini_sura = iniSuraInput.value.trim();
+        const ini_verse = iniVerseInput.value.trim();
+        const ini_word = iniWordInput.value.trim();
+        const ini_block = iniBlockInput.value.trim();
+        const end_sura = endSuraInput.value.trim();
+        const end_verse = endVerseInput.value.trim();
+        const end_word = endWordInput.value.trim();
+        const end_block = endBlockInput.value.trim();
+
+        const params = new URLSearchParams();
+
+        const addParamIfValid = (name, value) => {
+            if (value !== '') {
+                const num = parseInt(value);
+                if (!isNaN(num)) {
+                    params.append(name, num);
+                }
+            }
+        };
+
+        addParamIfValid('ini_sura', ini_sura);
+        addParamIfValid('ini_verse', ini_verse);
+        addParamIfValid('ini_word', ini_word);
+        addParamIfValid('ini_block', ini_block);
+
+        addParamIfValid('end_sura', end_sura);
+        addParamIfValid('end_verse', end_verse);
+        addParamIfValid('end_word', end_word);
+        addParamIfValid('end_block', end_block);
+
+        params.append('get_archigraphemes', archigraphemes_output);
+        params.append('get_blocks', blocks_output);
+        params.append('get_latin', latin_output);
+
         try {
-            const response = await fetch(
-                `/generate?` +
-                `ini_sura=${ini_sura}&` + 
-                `ini_verse=${ini_verse}&` + 
-                `ini_word=${ini_word}&` + 
-                `ini_block=${ini_block}&` + 
-
-                `end_sura=${end_sura}&` +
-                `end_verse=${end_verse}&` +
-                `end_word=${end_word}&` +
-                `end_block=${end_block}&` +
-
-                `get_archigraphemes=${archigraphemes_output}&` +
-                `get_blocks=${blocks_output}&` +
-                `get_latin=${latin_output}`, {
+            const response = await fetch(`/generate?${params.toString()}`, {
                 headers: {
                     'Authorization': 'Basic ' + btoa('admin:' + getPasswordFromStorage())
                 }
@@ -79,21 +64,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.detail || 'Request failed');
+                throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
             }
             
             const data = await response.json();
-            resultElement.textContent = data.result;
-            resultContainer.classList.remove('hidden');
+            resultElement.value = data.result;
+
+            const hasArabic = /[\p{Script=Arabic}]/u.test(data.result);
+            resultElement.classList.toggle('arabic-text', hasArabic);
+            resultElement.classList.toggle('latin-text', !hasArabic);
+
         } catch (error) {
-            // showError(error.message);
+            console.error('Fetch error:', error);
+            resultElement.value = `Error: ${error.message}`;
+
         }
     });
-    
-    // function showError(message) {
-    //     errorMessage.textContent = message;
-    //     errorContainer.classList.remove('hidden');
-    // }
     
     function getPasswordFromStorage() {
         //FIXME

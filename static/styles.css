@@ -9,3 +9,9 @@ body {
 	direction: rtl;
 	text-align: right;
 }
+
+.latin-text {
+    font-family: 'Noto Sans', serif;
+    direction: ltr;
+    text-align: left;
+}
