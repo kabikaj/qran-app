@@ -3,6 +3,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from itertools import groupby
 import secrets
 
 import sys   #FIXME
@@ -35,7 +36,7 @@ def verify_password(credentials: HTTPBasicCredentials = Depends(security)):
     if not (is_correct_username and is_correct_password):
         raise HTTPException(
             status_code=401,
-            detail="Incorrect email or password",
+            detail="Incorrect password",
             headers={"WWW-Authenticate": "Basic"},
         )
     return True
@@ -46,8 +47,18 @@ async def read_root(request: Request, auth: bool = Depends(verify_password)):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.get("/generate")
-async def generate(
+def to_ara_num(
+    text_num: str,
+    numbers: list[str] = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"]
+    ):
+    """
+    Convert numbers into Arabic numbers
+    """
+    return "".join(numbers[int(t)] for t in text_num)
+
+
+@app.get("/extract")
+async def extract(
     ini_sura: int = 1,
     ini_verse: int = 1,
     ini_word: int = 1,
@@ -61,6 +72,7 @@ async def generate(
     get_archigraphemes: bool = False,
     get_blocks: bool = False,
     get_latin: bool = False,
+    hide_verse_markers: bool = False,
 
     auth: bool = Depends(verify_password)
     ):
@@ -88,7 +100,35 @@ async def generate(
                 "no_arch": not get_archigraphemes,
             }
         )
-        return {"result": " ".join(res[0] for res in result)}
+
+        if hide_verse_markers:
+            return {"result": " ".join(res[0] for res in result)}
+        else:
+            text = []
+            current_sura = None
+
+            for key, tokens in groupby(result, key=lambda x: x[1].split(":")[:2]):
+                sura, verse = key
+
+                if not get_latin:
+                    sura = to_ara_num(sura)
+                    verse = to_ara_num(verse)
+                    sura_header = f"﴿ صوره {sura} ﴾"
+                    verse_marker = f"۝{verse}"
+                else:
+                    sura_header = ""
+                    verse_marker = f"{sura}:{verse}"
+
+                verse_text = " ".join(t[0] for t in tokens)
+
+                if current_sura != sura:
+                    text.append(sura_header)
+                    current_sura = sura
+
+                text.append(f"{verse_text} {verse_marker}")
+
+            return {"result": " ".join(text)}
+
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 

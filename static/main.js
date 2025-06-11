@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    const generateBtn = document.getElementById('generate-btn');
+    const extractBtn = document.getElementById('extract-btn');
     const copyButton = document.getElementById('copyButton');
     const resultElement = document.getElementById('result');
 
@@ -15,11 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const endWordInput = document.getElementById('end_word');
     const endBlockInput = document.getElementById('end_block');
 
-    generateBtn.addEventListener('click', async function() {
+    extractBtn.addEventListener('click', async function() {
 
         const archigraphemes_output = document.getElementById('archigraphemesToggle').checked;
         const blocks_output = document.getElementById('blocksToggle').checked;
         const latin_output = document.getElementById('latinToggle').checked;
+        const hide_verse_markers = document.getElementById('versesToggle').checked;
 
         const ini_sura = iniSuraInput.value.trim();
         const ini_verse = iniVerseInput.value.trim();
@@ -51,12 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
         addParamIfValid('end_word', end_word);
         addParamIfValid('end_block', end_block);
 
-        params.append('get_archigraphemes', archigraphemes_output);
-        params.append('get_blocks', blocks_output);
-        params.append('get_latin', latin_output);
+        params.append('get_archigraphemes', String(archigraphemes_output));
+        params.append('get_blocks', String(blocks_output));
+        params.append('get_latin', String(latin_output));
+        params.append('hide_verse_markers', String(hide_verse_markers));
 
         try {
-            const response = await fetch(`/generate?${params.toString()}`, {
+            const response = await fetch(`/extract?${params.toString()}`, {
                 headers: {
                     'Authorization': 'Basic ' + btoa('admin:' + getPasswordFromStorage())
                 }
@@ -109,4 +111,22 @@ document.getElementById('copyButton').addEventListener('click', function() {
         this.textContent = originalText;
     }, 2000);
 });
+
+
+
+// Help section toggle
+const helpToggle = document.getElementById('helpToggle');
+const helpSection = document.getElementById('helpSection');
+const closeHelp = document.getElementById('closeHelp');
+
+helpToggle.addEventListener('click', () => {
+    helpSection.classList.remove('hidden');
+    helpToggle.classList.add('hidden');
+});
+
+closeHelp.addEventListener('click', () => {
+    helpSection.classList.add('hidden');
+    helpToggle.classList.remove('hidden');
+});
+
 

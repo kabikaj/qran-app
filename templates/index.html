@@ -6,133 +6,244 @@
     <title>Quran Text API</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Amiri Quran' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Amiri+Quran' rel='stylesheet'>
     <link rel="stylesheet" href="static/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-
 <body class="bg-gray-50 p-8 d-flex flex-column">
+
   <main class="flex-grow-1">
     <div class="container-fluid px-4 mt-4">
 
-    <h1 class="text-2xl font-bold font-bold text-4xl text-center mb-10">Quran Text API</h1>    
+      <h1 class="text-2xl font-bold font-bold text-4xl text-center mb-10">Quran Text API</h1>
     
-    <div class="max-w-7xl mx-auto">        
+      <div class="max-w-7xl mx-auto">        
 
         <div class="grid grid-cols-10 gap-4 mb-6 ml-24">
 
-            <!-- INITIAL INDEX -->
+        <!-- INITIAL INDEX -->
 
-            <div class="flex flex-col">
-                <label for="ini_sura" class="text-lg font-medium text-gray-700 mb-1">Ini Sura</label>
-                <input id="ini_sura" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 1">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="ini_verse" class="text-lg font-medium text-gray-700 mb-1">Ini Verse</label>
-                <input id="ini_verse" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 1">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="ini_word" class="text-lg font-medium text-gray-700 mb-1">Ini Word</label>
-                <input id="ini_word" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 1">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="ini_block" class="text-lg font-medium text-gray-700 mb-1">Ini Block</label>
-                <input id="ini_block" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 1">
-            </div>
-
-            <div class="flex flex-col">
-            </div>
-
-
-            <!-- END INDEX -->
-
-            <div class="flex flex-col">
-                <label for="end_sura" class="text-lg font-medium text-gray-700 mb-1">End Sura</label>
-                <input id="end_sura" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 1">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="end_verse" class="text-lg font-medium text-gray-700 mb-1">End Verse</label>
-                <input id="end_verse" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 1">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="end_word" class="text-lg font-medium text-gray-700 mb-1">End Word</label>
-                <input id="end_word" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 1">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="end_block" class="text-lg font-medium text-gray-700 mb-1">End Block</label>
-                <input id="end_block" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 1">
-            </div>
-
+        <div class="flex flex-col">
+          <label for="ini_sura" class="text-base font-medium text-gray-700 mb-1">Ini Sura</label>
+          <input id="ini_sura" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 2">
         </div>
 
-        <div class="flex items-center justify-center gap-20 mb-2">
+        <div class="flex flex-col">
+          <label for="ini_verse" class="text-base font-medium text-gray-700 mb-1">Ini Verse</label>
+          <input id="ini_verse" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 17">
+        </div>
+
+        <div class="flex flex-col">
+          <label for="ini_word" class="text-base font-medium text-gray-700 mb-1">Ini Word</label>
+          <input id="ini_word" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 10">
+        </div>
+
+        <div class="flex flex-col">
+          <label for="ini_block" class="text-base font-medium text-gray-700 mb-1">Ini Block</label>
+          <input id="ini_block" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 2">
+        </div>
+
+        <div class="flex flex-col">
+        </div>
+
+        <!-- END INDEX -->
+
+        <div class="flex flex-col">
+          <label for="end_sura" class="text-base font-medium text-gray-700 mb-1">End Sura</label>
+          <input id="end_sura" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 2">
+        </div>
+
+        <div class="flex flex-col">
+          <label for="end_verse" class="text-base font-medium text-gray-700 mb-1">End Verse</label>
+          <input id="end_verse" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 37">
+        </div>
+
+        <div class="flex flex-col">
+          <label for="end_word" class="text-base font-medium text-gray-700 mb-1">End Word</label>
+          <input id="end_word" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 10">
+        </div>
+
+        <div class="flex flex-col">
+          <label for="end_block" class="text-base font-medium text-gray-700 mb-1">End Block</label>
+          <input id="end_block" type="text" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-lg" placeholder="e.g. 3">
+        </div>
+
+      </div>
+
+      <div class="flex items-center justify-center gap-14 mb-4">
             
-            <!-- Graphemes/Archigraphemes Switch -->
-            <div class="flex items-center">
-                <span class="mr-2 text-lg font-medium text-gray-700">Graphemes</span>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" value="" id="archigraphemesToggle" class="sr-only peer">
-                  <div class="relative w-11 h-6 bg-emerald-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-emerald-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-emerald-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-emerald-600 peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600"></div>
-                    <span class="ml-2 text-lg font-medium">Archigraphemes</span>
-                </label>
-            </div>
+      <!-- Graphemes/Archigraphemes Switch -->
+      <div class="flex items-center">
+        <span class="mr-2 text-base font-medium text-gray-700">Graphemes</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" id="archigraphemesToggle" class="sr-only peer">
+          <div class="relative w-11 h-6 bg-emerald-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-emerald-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-emerald-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-emerald-600 peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600"></div>
+            <span class="ml-2 text-base font-medium">Archigraphemes</span>
+        </label>
+      </div>
 
-            <!-- Words/Blocks Switch -->
-            <div class="flex items-center">
-                <span class="mr-2 text-lg font-medium text-gray-700">Words</span>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" value="" id="blocksToggle" class="sr-only peer">
-                  <div class="relative w-11 h-6 bg-emerald-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-emerald-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-emerald-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-emerald-600 peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600"></div>
-                    <span class="ml-2 text-lg font-medium">Blocks</span>
-                </label>
-            </div>
+      <!-- Words/Blocks Switch -->
+      <div class="flex items-center">
+        <span class="mr-2 text-base font-medium text-gray-700">Words</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" id="blocksToggle" class="sr-only peer">
+          <div class="relative w-11 h-6 bg-emerald-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-emerald-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-emerald-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-emerald-600 peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600"></div>
+          <span class="ml-2 text-base font-medium">Blocks</span>
+        </label>
+      </div>
 
-            <!-- Arabic/Latin Switch -->
-            <div class="flex items-center">
-                <span class="mr-2 text-lg font-medium text-gray-700">Arabic</span>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" value="" id="latinToggle" class="sr-only peer">
-                  <div class="relative w-11 h-6 bg-emerald-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-emerald-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-emerald-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-emerald-600 peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600"></div>
-                    <span class="ml-2 text-lg font-medium">Latin</span>
-                </label>
-            </div>
+      <!-- Arabic/Latin Switch -->
+      <div class="flex items-center">
+        <span class="mr-2 text-base font-medium text-gray-700">Arabic</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" id="latinToggle" class="sr-only peer">
+          <div class="relative w-11 h-6 bg-emerald-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-emerald-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-emerald-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-emerald-600 peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600"></div>
+          <span class="ml-2 text-base font-medium">Latin</span>
+        </label>
+      </div>
 
-        </div>
+      <!-- Verse Markers Switch -->
+      <div class="flex items-center">
+        <span class="mr-2 text-base font-medium text-gray-700">Verse Markers</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" id="versesToggle" class="sr-only peer">
+          <div class="relative w-11 h-6 bg-emerald-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-emerald-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-emerald-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-emerald-600 peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600"></div>
+          <span class="ml-2 text-base font-medium">Block of text</span>
+        </label>
+      </div>
 
-        <div class="flex items-center gap-6 mb-4">
-
-            <button id="generate-btn" class="px-4 py-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
-                Generate
-            </button>
-        </div>
-
-        <!-- Result textarea -->
-        <div class="mb-4">
-            <textarea id="result" class="w-full min-h-[50vh] px-3 py-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 leading-[2]"></textarea>
-        </div>
-
-        <!-- Copy button -->
-        <button id="copyButton" class="px-4 py-2 bg-gray-600 text-base text-white font-normal rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-            Copy to Clipboard
-        </button>
     </div>
 
-</main>
-
-    <footer class="english_font text-gray-500 text-center text-base py-4 mt-auto">
-      <p>Created by <a href="https://github.com/kabikaj/qrn-app" class="text-blue-500 hover:text-blue-700 hover:underline">Alicia González Martínez</a></p>
-    </footer>
-
-</div>
+    <div class="flex items-center gap-6 mb-4">
     
-    <script src="/static/main.js"></script>
+      <button id="helpToggle" class="px-4 py-2 bg-gray-600 text-white font-medium rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Help</button>
+            
+      <button id="extract-btn" class="px-4 py-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">Extract</button>
+
+    </div>
+
+    <!-- Help section -->
+    <div id="helpSection" class="hidden bg-gray-100 p-4 rounded-lg mb-4">
+      <h2 class="text-sm font-bold mb-4">Help Section</h2>
+      <div class="space-y-4">
+        <div>
+          <p class="text-gray-700 pb-2 text-xs">Enter the starting and ending indices to extract Quranic text. You can leave any index empty.
+          </p>
+          
+          <ul class="list-disc pl-3 text-gray-700 text-xs">
+            <li>Initial empty indexes will be automatically filled with the first value.</li>
+            <li>End empty indexes will be automatically filled with the last value of the sequence.</li>
+            <li>Block indicates a <strong>letterblock</strong>, i.e., a group of connected letters. For instance, the word <span class="arabic-text">ٱ</span> contains three letterblocks: (1) <span class="arabic-text" dir="ltr">ٱ</span> (2) <span class="arabic-text" dir="ltr">لرَّ</span> and (3) <span class="arabic-text" dir="ltr">حۡمَٰنِ</span>.</li>
+          </ul>
+
+        </div>
+        <div>
+          <h3 class="font-semibold text-xs pb-2">Switches:</h3>
+          <ul class="list-disc pl-5 text-gray-700 text-xs">
+            <li><strong>Graphemes</strong> shows all diacritics. <strong>Archigraphemes</strong> shows only the consonantal skeleton, without any vocalic or consonantal diacritic.</li>
+            <li><strong>Words</strong> show spaces between logical words. <strong>Blocks</strong> shows spaces between words and also between letterblocks, recreating the way script is presented in manuscripts.</li>
+            <li><strong>Arabic</strong> shows the text in the Arabic writing system. <strong>Latin</strong> shows all the graphemes in a pure transliteration (see the mapping above).</li>
+            <li><strong>Verse markers</strong> show the sura and verse numbers, whereas <strong>block of text</strong> omits them.
+              <ul class="list-disc pl-5">
+                <li>When Arabic is selected, suras are indicated at the beginning in this format: "<span class="arabic-text" dir="ltr">﴿ صوره ١ ﴾</span>". Verses are marked with the expected verse mark.</li>
+                <li>When Latin is selected, after each verse both sura and verse are indicated with the format "1:8".</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-xs pb-2">Arabic Latin Mapping:</h3>
+          <p class="text-gray-700 pb-2 text-xs">The transliteration mapping for the Latin representation is based on Thomas Milo archigraphemic system. We used additional symbols to represent all diacritics.</p>
+          <p class="text-gray-700 pb-2 text-xs">There are three cases when a strict transliteration is not used: for nunation we used the corresponding vowel plus a miniature nun above.</p>
+
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 text-sm p-4">   
+
+            <div><span class="arabic-text">ا</span> → A</div>
+            <div><span class="arabic-text">ٮ</span> → B</div>
+            <div><span class="arabic-text">ح</span> → G</div>
+            <div><span class="arabic-text">د</span> → D</div>
+            <div><span class="arabic-text">ر</span> → R</div>
+            <div><span class="arabic-text">س</span> → S</div>
+            <div><span class="arabic-text">ص</span> → C</div>
+            <div><span class="arabic-text">ط</span> → T</div>
+            <div><span class="arabic-text">ع</span> → E</div>
+            <div><span class="arabic-text">ڡ</span> → F</div>
+            <div><span class="arabic-text">ٯ</span> → [F] -Q</div>
+            <div><span class="arabic-text">ك</span> → K</div>
+            <div><span class="arabic-text">ل</span> → L</div>
+            <div><span class="arabic-text">م</span> → M</div>
+            <div><span class="arabic-text">ں</span> → N</div>
+            <div><span class="arabic-text">ه</span> → H</div>
+            <div><span class="arabic-text">و</span> → W</div>
+            <div><span class="arabic-text">ی</span> → [B] -Y</div>
+            <div><span class="arabic-text">࣪ </span> → ¹</div>
+            <div><span class="arabic-text">࣫ </span> → ²</div>
+            <div><span class="arabic-text">﮶</span> → ³</div>
+            <div><span class="arabic-text">࣭</span> → ₁</div>
+            <div><span class="arabic-text">࣮</span> → ₂</div>
+            <div><span class="arabic-text">َ</span> → ᵃ</div>
+            <div><span class="arabic-text">ِ</span> → ᵢ</div>
+            <div><span class="arabic-text">ُ</span> → ᵘ</div>
+            <div><span class="arabic-text">ً</span> → ᵃⁿ</div>
+            <div><span class="arabic-text">ٍ</span> → ᵢₙ</div>
+            <div><span class="arabic-text">ٌ</span> → ᵘⁿ</div>
+            <div><span class="arabic-text">ۡ</span> → ᵒ</div>
+            <div><span class="arabic-text">ّ</span> → ᵚ</div>
+            <div><span class="arabic-text">ٰ </span> → ᴬ</div>
+            <div><span class="arabic-text">ٓ </span> → ˜</div>
+            <div><span class="arabic-text">wasla</span> → ᵟ</div>
+            <div><span class="arabic-text">ء</span> → ʔ</div>
+            <div><span class="arabic-text">ٔ </span> → ˀ</div>
+            <div><span class="arabic-text">ٕ </span> → ɂ</div>
+            <div><span class="arabic-text">ْ</span> → •</div>
+            <div><span class="arabic-text">ۥ</span> → ʷ</div>
+            <div><span class="arabic-text">ۦ / ۧ </span> → ʸ</div>
+            <div><span class="arabic-text">ۜ </span> → ˢ</div>
+            <div><span class="arabic-text">ۣ </span> → ₛ</div>
+            <div><span class="arabic-text">ۢ </span> → ᵐ</div>
+            <div><span class="arabic-text">ۭ </span> → ₘ</div>
+            <div><span class="arabic-text">۟</span> → °</div>
+            <div><span class="arabic-text">ۨ </span> → ᴺ</div>
+            <div><span class="arabic-text">۠</span> → ⁰</div>
+            <div><span class="arabic-text">۫ </span> → ⌃</div>
+            <div><span class="arabic-text">۪ </span> → ⌄</div>
+            <div><span class="arabic-text">ۚ </span> → ⒥</div>
+            <div><span class="arabic-text">ۙ </span> → ⒧</div>
+            <div><span class="arabic-text">ۘ </span> → ⒨</div>
+            <div><span class="arabic-text">ۗ </span> → ⒬</div>
+            <div><span class="arabic-text">ۖ </span> → ⒮</div>
+            <div><span class="arabic-text">ۛ</span> → ∴</div>
+
+            <!--div><span class="arabic-text"></span> → ۞</div-->
+            <!--div><span class="arabic-text"></span> → ۩</div-->
+
+          </div>
+
+        </div>
+      </div>
+            
+      <button id="closeHelp" class="mt-4 px-4 py-2 bg-gray-600 text-white font-medium rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Close Help</button>
+
+    </div>
+
+    <!-- Result textarea -->
+    <div class="mb-4">
+      <textarea id="result" class="w-full min-h-[50vh] px-3 py-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 leading-[2]"></textarea>
+    </div>
+
+    <!-- Copy button -->
+    <button id="copyButton" class="px-4 py-2 bg-gray-600 text-base text-white font-normal rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Copy to Clipboard</button>
+
+  </main>
+
+  <footer class="english_font text-gray-500 text-center text-base py-4 mt-auto">
+    <p>Created by <a href="https://github.com/kabikaj/qrn-app" class="text-blue-500 hover:text-blue-700 hover:underline">Alicia González Martínez</a></p>
+  </footer>
+  
+  <script src="/static/main.js"></script>
 
 </body>
 </html>
