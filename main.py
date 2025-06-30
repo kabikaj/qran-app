@@ -10,7 +10,125 @@ import sys   #FIXME
 from pathlib import Path #FIXME
 sys.path.insert(0, str(Path(__file__).parent / "qrn/src/qrn" ))  #FIXME
 
-from qrn import get_text, Index
+from qrn import get_text
+
+
+SURAS = [
+    "ٱلْفَاتِحَة",
+    "ٱلْبَقَرَة",
+    "عِمْرَان",
+    "ٱلنِّسَاء",
+    "ٱلْمَائِدَة",
+    "ٱلْأَنْعَام",
+    "ٱلْأَعْرَاف",
+    "ٱلْأَنْفَال",
+    "ٱلتَّوْبَة",
+    "يُونُس",
+    "هُود",
+    "يُوسُف",
+    "ٱلرَّعْد",
+    "إِبْرَاهِيم",
+    "ٱلْحِجْر",
+    "ٱلنَّحْل",
+    "اٌلاِسْرٰاء",
+    "ٱلْكَهْف",
+    "مَرْيَم",
+    "طه",
+    "ٱلْأَنْبِيَاء",
+    "ٱلْحَجّ",
+    "ٱلْمُؤْمِنُون",
+    "ٱلنُّور",
+    "ٱلْفُرْقَان",
+    "ٱلشُّعَرَاء",
+    "ٱلنَّمْل",
+    "ٱلْقَصَص",
+    "ٱلْعَنْكَبُوت",
+    "ٱلرُّوم",
+    "لُقْمَان",
+    "ٱلسَّجْدَة",
+    "ٱلْأَحْزَاب",
+    "سَبَأ",
+    "فَاطِر",
+    "يس",
+    "ٱلصَّافَّات",
+    "ص",
+    "ٱلزُّمَر",
+    "غَافِر",
+    "فُصِّلَت",
+    "ٱلشُّورىٰ",
+    "ٱلْزُّخْرُف",
+    "ٱلدُّخَان",
+    "ٱلْجَاثِيَة",
+    "ٱلْأَحْقَاف",
+    "مُحَمَّد",
+    "ٱلْفَتْح",
+    "ٱلْحُجُرَات",
+    "ق",
+    "ٱلذَّارِيَات",
+    "ٱلطُّور",
+    "ٱلنَّجْم",
+    "ٱلْقَمَر",
+    "ٱلرَّحْمَٰن",
+    "ٱلْوَاقِعَة",
+    "ٱلْحَدِيد",
+    "ٱلْمُجَادِلَة",
+    "ٱلْحَشْر",
+    "ٱلْمُمْتَحَنَة",
+    "ٱلصَّفّ",
+    "ٱلْجُمُعَة",
+    "ٱلْمُنَافِقُون",
+    "ٱلتَّغَابُن",
+    "ٱلطَّلَاق",
+    "ٱلتَّحْرِيم",
+    "ٱلْمُلْك",
+    "ٱلْقَلَم",
+    "ٱلْحَاقَّة",
+    "ٱلْمَعَارِج",
+    "نُوح",
+    "ٱلْجِنّ",
+    "ٱلْمُزَّمِّل",
+    "ٱلْمُدَّثِّر",
+    "ٱلْقِيَامَة",
+    "ٱلْإِنْسَان",
+    "ٱلْمُرْسَلَات",
+    "ٱلنَّبَأ",
+    "ٱلنَّازِعَات",
+    "عَبَسَ",
+    "ٱلتَّكْوِير",
+    "ٱلْإِنْفِطَار",
+    "ٱلْمُطَفِّفِين",
+    "ٱلْإِنْشِقَاق",
+    "ٱلْبُرُوج",
+    "ٱلطَّارِق",
+    "ٱلْأَعْلَىٰ",
+    "ٱلْغَاشِيَة",
+    "ٱلْفَجْر",
+    "ٱلْبَلَد",
+    "ٱلشَّمْس",
+    "ٱللَّيْل",
+    "ٱلضُّحَىٰ",
+    "ٱلشَّرْح",
+    "ٱلتِّين",
+    "ٱلْعَلَق",
+    "ٱلْقَدْر",
+    "ٱلْبَيِّنَة",
+    "ٱلزَّلْزَلَة",
+    "ٱلْعَادِيَات",
+    "ٱلْقَارِعَة",
+    "ٱلتَّكَاثُر",
+    "ٱلْعَصْر",
+    "ٱلْهُمَزَة",
+    "ٱلْفِيل",
+    "قُرَيْش",
+    "ٱلْمَاعُون",
+    "ٱلْكَوْثَر",
+    "ٱلْكَافِرُون",
+    "ٱلنَّصْر",
+    "ٱلْمَسَد",
+    "ٱلْإِخْلَاص",
+    "ٱلْفَلَق",
+    "ٱلنَّاس",
+]
 
 app = FastAPI()
 
@@ -72,26 +190,17 @@ async def extract(
     get_archigraphemes: bool = False,
     get_blocks: bool = False,
     get_latin: bool = False,
-    hide_verse_markers: bool = False,
+    show_verse_markers: bool = False,
 
     auth: bool = Depends(verify_password)
+
     ):
 
     try:
         result = get_text(
             source="tanzil-uthmani",
-            ini_index=Index(
-                sura=ini_sura,
-                verse=ini_verse,
-                word=ini_word,
-                block=ini_block,
-            ),
-            end_index=Index(
-                sura=end_sura,
-                verse=end_verse,
-                word=end_word,
-                block=end_block,
-            ),
+            ini_index=(ini_sura, ini_verse, ini_word, ini_block),
+            end_index=(end_sura, end_verse, end_word, end_block),
             args={
                 "blocks": get_blocks,
                 "no_lat": not get_latin,
@@ -101,8 +210,8 @@ async def extract(
             }
         )
 
-        if hide_verse_markers:
-            return {"result": " ".join(res[0] for res in result)}
+        if not show_verse_markers:
+            content = " ".join(res[0] for res in result)
         else:
             text = []
             current_sura = None
@@ -111,9 +220,9 @@ async def extract(
                 sura, verse = key
 
                 if not get_latin:
+                    sura_header = f'﴿صُورِة {SURAS[int(sura)-1]}﴾\n'
                     sura = to_ara_num(sura)
                     verse = to_ara_num(verse)
-                    sura_header = f"﴿ صوره {sura} ﴾"
                     verse_marker = f"۝{verse}"
                 else:
                     sura_header = ""
@@ -121,13 +230,18 @@ async def extract(
 
                 verse_text = " ".join(t[0] for t in tokens)
 
+                if current_sura != None:
+                    sura_header = f"\n{sura_header}"
+
                 if current_sura != sura:
                     text.append(sura_header)
                     current_sura = sura
 
                 text.append(f"{verse_text} {verse_marker}")
 
-            return {"result": " ".join(text)}
+            content = " ".join(text)
+
+        return dict(result=content)
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

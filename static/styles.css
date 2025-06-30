@@ -5,9 +5,17 @@ body {
 }
 
 .arabic-text {
-	font-family: 'Amiri Quran', serif;
-	direction: rtl;
-	text-align: right;
+    font-family: 'Amiri Quran', serif;
+    direction: rtl;
+    text-align: right;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-variant-ligatures: contextual;
+}
+
+.arabic-surah-text {
+    font-family: 'Amiri Quran', serif;
+    direction: rtl;
+    text-align: right;
     font-feature-settings: "rlig" 1, "calt" 1;
     font-variant-ligatures: contextual;
 }

@@ -105,11 +105,11 @@
 
       <!-- Verse Markers Switch -->
       <div class="flex items-center">
-        <span class="mr-2 text-base font-medium text-gray-700">Verse Markers</span>
+        <span class="mr-2 text-base font-medium text-gray-700">Block of text</span>
         <label class="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" value="" id="versesToggle" class="sr-only peer">
+          <input type="checkbox" value="" id="noVersesToggle" class="sr-only peer">
           <div class="relative w-11 h-6 bg-emerald-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-emerald-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-emerald-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-emerald-600 peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600"></div>
-          <span class="ml-2 text-base font-medium">Block of text</span>
+          <span class="ml-2 text-base font-medium">Verse Markers</span>
         </label>
       </div>
 
@@ -133,8 +133,8 @@
           
           <ul class="list-disc pl-3 text-gray-700 text-xs">
             <li>Initial empty indexes will be automatically filled with the first value.</li>
-            <li>End empty indexes will be automatically filled with the last value of the sequence.</li>
-            <li>Block indicates a <strong>letterblock</strong>, i.e., a group of connected letters. For instance, the word <span class="arabic-text">ٱ</span> contains three letterblocks: (1) <span class="arabic-text" dir="ltr">ٱ</span> (2) <span class="arabic-text" dir="ltr">لرَّ</span> and (3) <span class="arabic-text" dir="ltr">حۡمَٰنِ</span>.</li>
+            <li>End empty indexes will be automatically filled with the last value of the corresponding sequence.</li>
+            <li>Block indicates a <strong>letterblock</strong>, i.e., a group of connected letters. For instance, the word <span class="arabic-text">ٱلرَّحۡمَٰنِ</span> contains three letterblocks: (1) <span class="arabic-text" dir="ltr">ٱ</span> (2) <span class="arabic-text" dir="ltr">لرَّ</span> and (3) <span class="arabic-text" dir="ltr">حۡمَٰنِ</span>.</li>
           </ul>
 
         </div>
@@ -143,7 +143,7 @@
           <ul class="list-disc pl-5 text-gray-700 text-xs">
             <li><strong>Graphemes</strong> shows all diacritics. <strong>Archigraphemes</strong> shows only the consonantal skeleton, without any vocalic or consonantal diacritic.</li>
             <li><strong>Words</strong> show spaces between logical words. <strong>Blocks</strong> shows spaces between words and also between letterblocks, recreating the way script is presented in manuscripts.</li>
-            <li><strong>Arabic</strong> shows the text in the Arabic writing system. <strong>Latin</strong> shows all the graphemes in a pure transliteration (see the mapping above).</li>
+            <li><strong>Arabic</strong> shows the text in the Arabic writing system. <strong>Latin</strong> shows all the graphemes in a pure transliteration (see the mapping below).</li>
             <li><strong>Verse markers</strong> show the sura and verse numbers, whereas <strong>block of text</strong> omits them.
               <ul class="list-disc pl-5">
                 <li>When Arabic is selected, suras are indicated at the beginning in this format: "<span class="arabic-text" dir="ltr">﴿ صوره ١ ﴾</span>". Verses are marked with the expected verse mark.</li>
@@ -155,9 +155,7 @@
 
         <div>
           <h3 class="font-semibold text-xs pb-2">Arabic Latin Mapping:</h3>
-          <p class="text-gray-700 pb-2 text-xs">The transliteration mapping for the Latin representation is based on Thomas Milo archigraphemic system. We used additional symbols to represent all diacritics.</p>
-          <p class="text-gray-700 pb-2 text-xs">There are three cases when a strict transliteration is not used: for nunation we used the corresponding vowel plus a miniature nun above.</p>
-
+          <p class="text-gray-700 pb-2 text-xs">The transliteration mapping for the Latin representation is based on Thomas Milo archigraphemic system. We used additional symbols to represent all diacritics. There are three cases when a strict transliteration is not used: for nunation we used the corresponding vowel plus a miniature nun above.</p>
 
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 text-sm p-4">   
 
@@ -229,10 +227,27 @@
 
     </div>
 
-    <!-- Result textarea -->
-    <div class="mb-4">
+
+    <div class="flex items-center mb-4">
+      
       <textarea id="result" class="w-full min-h-[50vh] px-3 py-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 leading-[2]"></textarea>
+      
+      <div class="flex flex-col ml-2 space-y-2">
+        <button id="prevSurah" class="p-2 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <button id="nextSurah" class="p-2 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+
     </div>
+
+
 
     <!-- Copy button -->
     <button id="copyButton" class="px-4 py-2 bg-gray-600 text-base text-white font-normal rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Copy to Clipboard</button>
