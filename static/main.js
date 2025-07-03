@@ -58,11 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         params.append('show_verse_markers', String(show_verse_markers));
 
         try {
-            const response = await fetch(`/extract?${params.toString()}`, {
-                headers: {
-                    'Authorization': 'Basic ' + btoa('admin:' + getPasswordFromStorage())
-                }
-            });
+            const response = await fetch(`/extract?${params.toString()}`);
             
             if (!response.ok) {
                 const errorData = await response.json();
@@ -70,6 +66,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const data = await response.json();
+
+            if (data.alert?.trim()) {
+                showAlert(data.alert);
+            }
+
             resultElement.value = data.result;
 
             const hasArabic = /[\p{Script=Arabic}]/u.test(data.result);
@@ -82,21 +83,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
     });
-    
-    function getPasswordFromStorage() {
-        //FIXME
-        // In a real app, you might want to implement a proper login flow
-        // For this simple example, we'll prompt for password if not in sessionStorage
-        let password = sessionStorage.getItem('master_password');
-        if (!password) {
-            password = prompt('Please enter the master password:');
-            if (password) {
-                sessionStorage.setItem('master_password', password);
-            }
-        }
-        return password;
-    }
-});
+
+
+
+
+
+function showAlert(message) {
+  const alert = document.getElementById('alert');
+  const messageEl = document.getElementById('alert-message');
+  
+  messageEl.textContent = message;
+  alert.classList.remove('hidden');
+  
+  setTimeout(() => alert.classList.add('hidden'), 5000);
+}
+
 
 
 document.getElementById('copyButton').addEventListener('click', function() {
@@ -114,7 +115,7 @@ document.getElementById('copyButton').addEventListener('click', function() {
 
 
 
-// Help section toggle
+
 const helpToggle = document.getElementById('helpToggle');
 const helpSection = document.getElementById('helpSection');
 const closeHelp = document.getElementById('closeHelp');

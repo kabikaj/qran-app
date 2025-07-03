@@ -1,16 +1,20 @@
-from fastapi import FastAPI, Depends, HTTPException, Request
+from fastapi import FastAPI, Depends, HTTPException, Request, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from itertools import groupby
+from typing import Optional
 import secrets
+
+
 
 import sys   #FIXME
 from pathlib import Path #FIXME
 sys.path.insert(0, str(Path(__file__).parent / "qrn/src/qrn" ))  #FIXME
 
 from qrn import get_text
+
 
 
 SURAS = [
@@ -130,8 +134,9 @@ SURAS = [
     "ٱلنَّاس",
 ]
 
-app = FastAPI()
 
+
+app = FastAPI()
 # app.add_middleware(
 #     CORSMiddleware,
 #     allow_origins=["*"],
@@ -139,30 +144,36 @@ app = FastAPI()
 #     allow_methods=["*"],
 #     allow_headers=["*"],
 # )
-
 app.mount("/static", StaticFiles(directory="static"), name="static")
+security = HTTPBasic()
 templates = Jinja2Templates(directory="templates")
 
-MASTER_PASSWORD = "admin"  #FIXME
-security = HTTPBasic()
 
+security = HTTPBasic(auto_error=True)
 
-def verify_password(credentials: HTTPBasicCredentials = Depends(security)):
-    correct_username = "admin"
-    is_correct_username = secrets.compare_digest(credentials.username, correct_username)
-    is_correct_password = secrets.compare_digest(credentials.password, MASTER_PASSWORD)
-    if not (is_correct_username and is_correct_password):
-        raise HTTPException(
-            status_code=401,
-            detail="Incorrect password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return True
+# Simple user database (in production, use proper password hashing)
+users_db = {
+    "admin": "admin",
+    "user": "1234"
+}
+
+def verify_user(credentials: Optional[HTTPBasicCredentials] = Depends(security)) -> Optional[str]:
+    if credentials is None:
+        return None
+    correct_password = users_db.get(credentials.username)
+    if correct_password and secrets.compare_digest(credentials.password, correct_password):
+        return credentials.username
+    return None
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request, auth: bool = Depends(verify_password)):
-    return templates.TemplateResponse("index.html", {"request": request})
+async def root(request: Request):
+    # Remove authentication from root endpoint
+    return templates.TemplateResponse(
+        "index.html", 
+        {"request": request}
+    )
+
 
 
 def to_ara_num(
@@ -181,20 +192,21 @@ async def extract(
     ini_verse: int = 1,
     ini_word: int = 1,
     ini_block: int = 1,
-
     end_sura: int = -1,
     end_verse: int = -1,
     end_word: int = -1,
     end_block: int = -1,
-
     get_archigraphemes: bool = False,
     get_blocks: bool = False,
     get_latin: bool = False,
     show_verse_markers: bool = False,
-
-    auth: bool = Depends(verify_password)
-
+    username: str = Depends(verify_user)
     ):
+
+    alert = None
+    if username is None:
+        ini_sura = end_sura = 3
+        alert = "You are not authenticated. Showing results for Sura 3 only."
 
     try:
         result = get_text(
@@ -230,7 +242,7 @@ async def extract(
 
                 verse_text = " ".join(t[0] for t in tokens)
 
-                if current_sura != None:
+                if current_sura is not None:
                     sura_header = f"\n{sura_header}"
 
                 if current_sura != sura:
@@ -241,7 +253,7 @@ async def extract(
 
             content = " ".join(text)
 
-        return dict(result=content)
+        return dict(result=content, alert=alert)
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
