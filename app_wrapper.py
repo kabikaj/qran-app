@@ -15,7 +15,7 @@ if __name__ == "__main__":
     t.daemon = True
     t.start()
     
-    webview.create_window("Qrn-App", "http://127.0.0.1:8000")
+    webview.create_window("Qran-App", "http://127.0.0.1:8000")
     webview.start()
 
 
