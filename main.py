@@ -1,20 +1,17 @@
+
+# Copyright (c) 2025 Alicia González Martínez
+
 from fastapi import FastAPI, Depends, HTTPException, Request, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from pydantic_settings import BaseSettings
+from passlib.context import CryptContext
 from itertools import groupby
-from typing import Optional
 import secrets
 
-
-
-import sys   #FIXME
-from pathlib import Path #FIXME
-sys.path.insert(0, str(Path(__file__).parent / "qrn/src/qrn" ))  #FIXME
-
-from qrn import get_text
-
+from qran import get_text
 
 
 SURAS = [
@@ -135,45 +132,62 @@ SURAS = [
 ]
 
 
+class Settings(BaseSettings):
+    ADMIN_USERNAME: str
+    ADMIN_PASSWORD_HASH: str
+    USER1_USERNAME: str
+    USER1_PASSWORD_HASH: str
+    USER2_USERNAME: str
+    USER2_PASSWORD_HASH: str
+    SECRET_KEY: str
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+        extra = "ignore"  # ignore extra env vars
+
+settings = Settings()
 
 app = FastAPI()
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
 security = HTTPBasic()
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
 templates = Jinja2Templates(directory="templates")
 
 
 security = HTTPBasic(auto_error=True)
 
-# Simple user database (in production, use proper password hashing)
+
 users_db = {
-    "admin": "admin",
-    "user": "1234"
+    "guest": pwd_context.hash("guest"),
+    settings.ADMIN_USERNAME: settings.ADMIN_PASSWORD_HASH,
+    settings.USER1_USERNAME: settings.USER1_PASSWORD_HASH,
+    settings.USER2_USERNAME: settings.USER2_PASSWORD_HASH,
 }
 
-def verify_user(credentials: Optional[HTTPBasicCredentials] = Depends(security)) -> Optional[str]:
-    if credentials is None:
-        return None
-    correct_password = users_db.get(credentials.username)
-    if correct_password and secrets.compare_digest(credentials.password, correct_password):
-        return credentials.username
-    return None
+
+async def verify_user(credentials: HTTPBasicCredentials = Depends(security)) -> str:
+    if not credentials:
+        return ""
+    stored_hash = users_db.get(credentials.username)
+    if not stored_hash or not pwd_context.verify(credentials.password, stored_hash):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication credentials",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return credentials.username
 
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
-    # Remove authentication from root endpoint
-    return templates.TemplateResponse(
-        "index.html", 
-        {"request": request}
-    )
-
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 def to_ara_num(
@@ -204,9 +218,9 @@ async def extract(
     ):
 
     alert = None
-    if username is None:
+    if not username or username == "guest":
         ini_sura = end_sura = 3
-        alert = "You are not authenticated. Showing results for Sura 3 only."
+        alert = "You are not authenticated. Showing results for Surah 3 only."
 
     try:
         result = get_text(

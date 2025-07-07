@@ -1,4 +1,8 @@
 
+//
+// Copyright (c) 2025 Alicia González Martínez
+//
+
 document.addEventListener('DOMContentLoaded', function() {
 
     const extractBtn = document.getElementById('extract-btn');
@@ -58,7 +62,17 @@ document.addEventListener('DOMContentLoaded', function() {
         params.append('show_verse_markers', String(show_verse_markers));
 
         try {
-            const response = await fetch(`/extract?${params.toString()}`);
+            let response = await fetch(`/extract?${params.toString()}`);
+
+            if (response.status === 401) {
+                //console.warn("Authentication failed. Retrying as guest...");
+                const guestCredentials = btoa("guest:guest");
+                response = await fetch(`/extract?${params.toString()}`, {
+                    headers: {
+                        Authorization: `Basic ${guestCredentials}`,
+                    },
+                });
+            }
             
             if (!response.ok) {
                 const errorData = await response.json();
@@ -83,6 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
     });
+
+});
 
 
 
@@ -138,7 +154,7 @@ closeHelp.addEventListener('click', () => {
 
 const upArrow = document.getElementById('prevSurah');
 const downArrow = document.getElementById('nextSurah');
-const resultElement = document.getElementById('result');
+//const resultElement = document.getElementById('result');
 
 
 function findArabicSuras(text) {
@@ -161,7 +177,7 @@ function findLatinSuras(text) {
   return positions;
 }
 
-function navigateToPoint(direction) {
+function navigateToSura(direction) {
   const text = resultElement.value;
   const cursorPos = resultElement.selectionStart;
   const is_latin = document.getElementById('latinToggle').checked;
@@ -206,7 +222,7 @@ function navigateToPoint(direction) {
   resultElement.scrollTop = (targetLine - linesToScroll) * lineHeight;
 }
 
-upArrow.addEventListener('click', () => navigateToPoint('prev_sura'));
-downArrow.addEventListener('click', () => navigateToPoint('next_sura'));
+upArrow.addEventListener('click', () => navigateToSura('prev_sura'));
+downArrow.addEventListener('click', () => navigateToSura('next_sura'));
 
 
