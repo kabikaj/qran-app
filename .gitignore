@@ -1,4 +1,4 @@
-generate_hashes.py
+.generate_hashes.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

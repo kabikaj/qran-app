@@ -1,6 +1,5 @@
 uvicorn
 fastapi[all]
-sqlalchemy
 pydantic_settings
 passlib
 bcrypt==4.0.1
