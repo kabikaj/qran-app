@@ -139,6 +139,8 @@ class Settings(BaseSettings):
     USER1_PASSWORD_HASH: str
     USER2_USERNAME: str
     USER2_PASSWORD_HASH: str
+    USER3_USERNAME: str
+    USER3_PASSWORD_HASH: str
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
