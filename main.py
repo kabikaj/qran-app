@@ -171,6 +171,7 @@ users_db = {
     settings.ADMIN_USERNAME: settings.ADMIN_PASSWORD_HASH,
     settings.USER1_USERNAME: settings.USER1_PASSWORD_HASH,
     settings.USER2_USERNAME: settings.USER2_PASSWORD_HASH,
+    settings.USER3_USERNAME: settings.USER3_PASSWORD_HASH,
 }
 
 
