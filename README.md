@@ -22,7 +22,6 @@ docker build -t qran-app .
 docker save -o qran-app.tar qran-app
 
 # load and run:
-
 docker load -i qran-app.tar
 docker run -p 8000:8000 qran-app
 ```
