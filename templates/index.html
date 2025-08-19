@@ -130,30 +130,30 @@
       <h2 class="text-sm font-bold mb-4">Help Section</h2>
       <div class="space-y-4">
         <div>
-          <p class="text-gray-700 pb-2 text-xs">Unauthenticated users have only access tu Surah 3. Click on Cancel when the login pop-up appears.
+          <p class="text-gray-700 pb-2 text-sm">Unauthenticated users have only access tu Surah 3. Click on Cancel when the login pop-up appears.
           </p>
 
-          <p class="text-gray-700 pb-2 text-xs">Enter the starting and ending indices to extract Quranic text. You can leave any index empty.
+          <p class="text-gray-700 pb-2 text-sm">Enter the starting and ending indices to extract Quranic text. You can leave any index empty.
           </p>
           
-          <ul class="list-disc pl-3 text-gray-700 text-xs">
+          <ul class="list-disc pl-3 text-gray-700 text-sm">
             <li>Initial empty indexes will be automatically filled with the first value.</li>
             <li>End empty indexes will be automatically filled with the last value of the corresponding sequence.</li>
             <li>If all indexes are empty, the complete text will be retrieved.</li>
-            <li>Block indicates a <strong>letterblock</strong>, i.e., a group of connected letters. For instance, the word <span class="arabic-text">ٱلرَّحۡمَٰنِ</span> contains three letterblocks: (1) <span class="arabic-text" dir="ltr">ٱ</span> (2) <span class="arabic-text" dir="ltr">لرَّ</span> and (3) <span class="arabic-text" dir="ltr">حۡمَٰنِ</span>.</li>
+            <li>Block indicates a <strong>letterblock</strong>, i.e., a group of connected letters. For instance, the word <span class="arabic-text text-lg">ٱلرَّحۡمَٰنِ</span> contains three letterblocks: (1) <span class="arabic-text text-lg" dir="ltr">ٱ</span> (2) <span class="arabic-text text-lg" dir="ltr">لرَّ</span> and (3) <span class="arabic-text text-lg" dir="ltr">حۡمَٰنِ</span>.</li>
             <li>When verse markers are activated, you can use the up and down arrows at the right of the textarea to navigate to the previous or next surah.</li>
           </ul>
 
         </div>
         <div>
-          <h3 class="font-semibold text-xs pb-2">Switches:</h3>
-          <ul class="list-disc pl-5 text-gray-700 text-xs">
+          <h3 class="font-semibold text-sm pb-2">Switches:</h3>
+          <ul class="list-disc pl-5 text-gray-700 text-sm">
             <li><strong>Graphemes</strong> shows all diacritics. <strong>Archigraphemes</strong> shows only the consonantal skeleton, without any vocalic or consonantal diacritic.</li>
             <li><strong>Words</strong> show spaces between logical words. <strong>Blocks</strong> shows spaces between words and also between letterblocks, recreating the way script is presented in manuscripts.</li>
             <li><strong>Arabic</strong> shows the text in the Arabic writing system. <strong>Latin</strong> shows all the graphemes in a pure transliteration (see the mapping below).</li>
             <li><strong>Verse markers</strong> show the sura and verse numbers, whereas <strong>block of text</strong> omits them.
               <ul class="list-disc pl-5">
-                <li>When Arabic is selected, suras are indicated at the beginning in this format: "<span class="arabic-text" dir="ltr">﴿ صوره ١ ﴾</span>". Verses are marked with the expected verse mark.</li>
+                <li>When Arabic is selected, suras are indicated at the beginning in this format: "<span class="arabic-text text-lg" dir="ltr">﴿ صوره ١ ﴾</span>". Verses are marked with the expected verse mark.</li>
                 <li>When Latin is selected, after each verse both sura and verse are indicated with the format "1:8".</li>
               </ul>
             </li>
@@ -161,69 +161,70 @@
         </div>
 
         <div>
-          <h3 class="font-semibold text-xs pb-2">Arabic Latin Mapping:</h3>
-          <p class="text-gray-700 pb-2 text-xs">The transliteration mapping for the Latin representation is based on Thomas Milo archigraphemic system. We used additional symbols to represent all diacritics. There are three cases when a strict transliteration is not used: for nunation we used the corresponding vowel plus a miniature nun above.</p>
+          <h3 class="font-semibold text-sm pb-2">Arabic Latin Mapping:</h3>
+          <p class="text-gray-700 pb-2 text-sm">The transliteration mapping for the Latin representation is based on Thomas Milo archigraphemic system. We used additional symbols to represent all diacritics. There are three cases when a strict transliteration is not used: for nunation we used the corresponding vowel plus a miniature nun above.</p>
 
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 text-sm p-4">   
 
-            <div><span class="arabic-text">ا</span> → A</div>
-            <div><span class="arabic-text">ٮ</span> → B</div>
-            <div><span class="arabic-text">ح</span> → G</div>
-            <div><span class="arabic-text">د</span> → D</div>
-            <div><span class="arabic-text">ر</span> → R</div>
-            <div><span class="arabic-text">س</span> → S</div>
-            <div><span class="arabic-text">ص</span> → C</div>
-            <div><span class="arabic-text">ط</span> → T</div>
-            <div><span class="arabic-text">ع</span> → E</div>
-            <div><span class="arabic-text">ڡ</span> → F</div>
-            <div><span class="arabic-text">ٯ</span> → [F] -Q</div>
-            <div><span class="arabic-text">ك</span> → K</div>
-            <div><span class="arabic-text">ل</span> → L</div>
-            <div><span class="arabic-text">م</span> → M</div>
-            <div><span class="arabic-text">ں</span> → N</div>
-            <div><span class="arabic-text">ه</span> → H</div>
-            <div><span class="arabic-text">و</span> → W</div>
-            <div><span class="arabic-text">ی</span> → [B] -Y</div>
-            <div><span class="arabic-text">࣪ </span> → ¹</div>
-            <div><span class="arabic-text">࣫ </span> → ²</div>
-            <div><span class="arabic-text">﮶</span> → ³</div>
-            <div><span class="arabic-text">࣭</span> → ₁</div>
-            <div><span class="arabic-text">࣮</span> → ₂</div>
-            <div><span class="arabic-text">َ</span> → ᵃ</div>
-            <div><span class="arabic-text">ِ</span> → ᵢ</div>
-            <div><span class="arabic-text">ُ</span> → ᵘ</div>
-            <div><span class="arabic-text">ً</span> → ᵃⁿ</div>
-            <div><span class="arabic-text">ٍ</span> → ᵢₙ</div>
-            <div><span class="arabic-text">ٌ</span> → ᵘⁿ</div>
-            <div><span class="arabic-text">ۡ</span> → ᵒ</div>
-            <div><span class="arabic-text">ّ</span> → ᵚ</div>
-            <div><span class="arabic-text">ٰ </span> → ᴬ</div>
-            <div><span class="arabic-text">ٓ </span> → ˜</div>
-            <div><span class="arabic-text">wasla</span> → ᵟ</div>
-            <div><span class="arabic-text">ء</span> → ʔ</div>
-            <div><span class="arabic-text">ٔ </span> → ˀ</div>
-            <div><span class="arabic-text">ٕ </span> → ɂ</div>
-            <div><span class="arabic-text">ْ</span> → •</div>
-            <div><span class="arabic-text">ۥ</span> → ʷ</div>
-            <div><span class="arabic-text">ۦ / ۧ </span> → ʸ</div>
-            <div><span class="arabic-text">ۜ </span> → ˢ</div>
-            <div><span class="arabic-text">ۣ </span> → ₛ</div>
-            <div><span class="arabic-text">ۢ </span> → ᵐ</div>
-            <div><span class="arabic-text">ۭ </span> → ₘ</div>
-            <div><span class="arabic-text">۟</span> → °</div>
-            <div><span class="arabic-text">ۨ </span> → ᴺ</div>
-            <div><span class="arabic-text">۠</span> → ⁰</div>
-            <div><span class="arabic-text">۫ </span> → ⌃</div>
-            <div><span class="arabic-text">۪ </span> → ⌄</div>
-            <div><span class="arabic-text">ۚ </span> → ⒥</div>
-            <div><span class="arabic-text">ۙ </span> → ⒧</div>
-            <div><span class="arabic-text">ۘ </span> → ⒨</div>
-            <div><span class="arabic-text">ۗ </span> → ⒬</div>
-            <div><span class="arabic-text">ۖ </span> → ⒮</div>
-            <div><span class="arabic-text">ۛ</span> → ∴</div>
+            <div><span class="arabic-text text-xl">ا</span> → <span class="latin-text text-lg">A</span></div>
+            <div><span class="arabic-text text-xl">ٮ</span> → <span class="latin-text text-lg">B</span></div>
+            <div><span class="arabic-text text-xl">ح</span> → <span class="latin-text text-lg">G</span></div>
+            <div><span class="arabic-text text-xl">د</span> → <span class="latin-text text-lg">D</span></div>
+            <div><span class="arabic-text text-xl">ر</span> → <span class="latin-text text-lg">R</span></div>
+            <div><span class="arabic-text text-xl">س</span> → <span class="latin-text text-lg">S</span></div>
+            <div><span class="arabic-text text-xl">ص</span> → <span class="latin-text text-lg">C</span></div>
+            <div><span class="arabic-text text-xl">ط</span> → <span class="latin-text text-lg">T</span></div>
+            <div><span class="arabic-text text-xl">ع</span> → <span class="latin-text text-lg">E</span></div>
+            <div><span class="arabic-text text-xl">ڡ</span> → <span class="latin-text text-lg">F</span></div>
+            <div><span class="arabic-text text-xl">ٯ</span> → <span class="latin-text text-lg">[F] -Q</span></div>
+            <div><span class="arabic-text text-xl">ك</span> → <span class="latin-text text-lg">K</span></div>
+            <div><span class="arabic-text text-xl">ل</span> → <span class="latin-text text-lg">L</span></div>
+            <div><span class="arabic-text text-xl">م</span> → <span class="latin-text text-lg">M</span></div>
+            <div><span class="arabic-text text-xl">ں</span> → <span class="latin-text text-lg">N</span></div>
+            <div><span class="arabic-text text-xl">ه</span> → <span class="latin-text text-lg">H</span></div>
+            <div><span class="arabic-text text-xl">و</span> → <span class="latin-text text-lg">W</span></div>
+            <div><span class="arabic-text text-xl">ی</span> → <span class="latin-text text-lg">[B] -Y</span></div>
+            <div><span class="arabic-text text-xl">࣪ </span> → <span class="latin-text text-xl">¹</span></div>
+            <div><span class="arabic-text text-xl">࣫ </span> → <span class="latin-text text-xl">²</span></div>
+            
+            <div><span class="arabic-text text-xl">﮶</span> → <span class="latin-text text-xl">³</span></div>
+            <div><span class="arabic-text text-xl">࣭</span> → <span class="latin-text text-xl">₁</span></div>
+            <div><span class="arabic-text text-xl">࣮</span> → <span class="latin-text text-xl">₂</span></div>
+            <div><span class="arabic-text text-xl">َ</span> → <span class="latin-text text-xl">ᵃ</span></div>
+            <div><span class="arabic-text text-xl">ِ</span> → <span class="latin-text text-xl">ᵢ</span></div>
+            <div><span class="arabic-text text-xl">ُ</span> → <span class="latin-text text-xl">ᵘ</span></div>
+            <div><span class="arabic-text text-xl">ً</span> → <span class="latin-text text-xl">ᵃⁿ</span></div>
+            <div><span class="arabic-text text-xl">ٍ</span> → <span class="latin-text text-xl">ᵢₙ</span></div>
+            <div><span class="arabic-text text-xl">ٌ</span> → <span class="latin-text text-xl">ᵘⁿ</span></div>
+            <div><span class="arabic-text text-xl">ۡ</span> → <span class="latin-text text-xl">ᵒ</span></div>
+            <div><span class="arabic-text text-xl">ّ</span> → <span class="latin-text text-xl">ᵚ</span></div>
+            <div><span class="arabic-text text-xl">ٰ </span> → <span class="latin-text text-xl">ᴬ</span></div>
+            <div><span class="arabic-text text-xl">ٓ </span> → <span class="latin-text text-xl">˜</span></div>
+            <div><span class="">wasla</span> → <span class="latin-text text-xl">ᵟ</div>
+            <div><span class="arabic-text text-xl">ء</span> → <span class="latin-text text-lg">ʔ</span></div>
+            <div><span class="arabic-text text-xl">ٔ </span> → <span class="latin-text text-xl">ˀ</span></div>
+            <div><span class="arabic-text text-xl">ٕ </span> → <span class="latin-text text-xl">ɂ</span></div>
+            <div><span class="arabic-text text-xl">ْ</span> → <span class="latin-text text-xl">•</span></div>
+            <div><span class="arabic-text text-xl">ۥ</span> → <span class="latin-text text-xl">ʷ</span></div>
+            <div><span class="arabic-text text-xl">ۦ / ۧ </span> → <span class="latin-text text-xl">ʸ</span></div>
+            <div><span class="arabic-text text-xl">ۜ </span> → <span class="latin-text text-xl">ˢ</span></div>
+            <div><span class="arabic-text text-xl">ۣ </span> → <span class="latin-text text-xl">ₛ</span></div>
+            <div><span class="arabic-text text-xl">ۢ </span> → <span class="latin-text text-xl">ᵐ</span></div>
+            <div><span class="arabic-text text-xl">ۭ </span> → <span class="latin-text text-xl">ₘ</span></div>
+            <div><span class="arabic-text text-xl">۟</span> → <span class="latin-text text-xl">°</span></div>
+            <div><span class="arabic-text text-xl">ۨ </span> → <span class="latin-text text-xl">ᴺ</span></div>
+            <div><span class="arabic-text text-xl">۠</span> → <span class="latin-text text-xl">⁰</span></div>
+            <div><span class="arabic-text text-xl">۫ </span> → <span class="latin-text text-xl">⌃</span></div>
+            <div><span class="arabic-text text-xl">۪ </span> → <span class="latin-text text-xl">⌄</span></div>
+            <div><span class="arabic-text text-xl leading-[2.3]">ۚ </span> → <span class="latin-text text-lg">⒥</span></div>
+            <div><span class="arabic-text text-xl leading-[2.3]">ۙ </span> → <span class="latin-text text-lg">⒧</span></div>
+            <div><span class="arabic-text text-xl leading-[2.3]">ۘ </span> → <span class="latin-text text-lg">⒨</span></div>
+            <div><span class="arabic-text text-xl leading-[2.3]">ۗ </span> → <span class="latin-text text-lg">⒬</span></div>
+            <div><span class="arabic-text text-xl leading-[2.3]">ۖ </span> → <span class="latin-text text-lg">⒮</span></div>
+            <div><span class="arabic-text text-xl leading-[2.3]">ۛ</span> → <span class="latin-text text-lg">∴</span></div>
 
-            <!--div><span class="arabic-text"></span> → ۞</div-->
-            <!--div><span class="arabic-text"></span> → ۩</div-->
+            <!--div><span class="arabic-text text-xl"></span> → <span class="latin-text text-xl">۞</span></div-->
+            <!--div><span class="arabic-text text-xl"></span> → <span class="latin-text text-xl">۩</span></div-->
 
           </div>
 
