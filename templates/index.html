@@ -139,6 +139,7 @@
           <ul class="list-disc pl-3 text-gray-700 text-xs">
             <li>Initial empty indexes will be automatically filled with the first value.</li>
             <li>End empty indexes will be automatically filled with the last value of the corresponding sequence.</li>
+            <li>If all indexes are empty, the complete text will be retrieved.</li>
             <li>Block indicates a <strong>letterblock</strong>, i.e., a group of connected letters. For instance, the word <span class="arabic-text">ٱلرَّحۡمَٰنِ</span> contains three letterblocks: (1) <span class="arabic-text" dir="ltr">ٱ</span> (2) <span class="arabic-text" dir="ltr">لرَّ</span> and (3) <span class="arabic-text" dir="ltr">حۡمَٰنِ</span>.</li>
             <li>When verse markers are activated, you can use the up and down arrows at the right of the textarea to navigate to the previous or next surah.</li>
           </ul>
@@ -236,7 +237,7 @@
 
     <div class="flex items-center mb-4">
       
-      <textarea id="result" class="w-full min-h-[50vh] px-3 py-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 leading-[2]"></textarea>
+      <textarea id="result" class="w-full min-h-[50vh] px-3 py-2 text-3xl border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 leading-[2.3]"></textarea>
       
       <div class="flex flex-col ml-2 space-y-2">
         <button id="prevSurah" class="p-2 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none transition-colors">

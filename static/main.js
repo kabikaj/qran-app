@@ -179,7 +179,6 @@ closeHelp.addEventListener('click', () => {
 });
 
 
-
 //
 // nagivate to previous and next suras
 //
